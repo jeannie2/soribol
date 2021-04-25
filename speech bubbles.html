@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--?-->
+    <title>Speech Bubbles</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=ABeeZee&family=Alata&family=Alatsi&family=Aldrich&family=Alef&family=Allerta&family=Anonymous+Pro&family=Anton&family=Audiowide&family=Bangers&family=Barrio&family=Bebas+Neue&family=Beth+Ellen&family=Black+Han+Sans&family=Boogaloo&family=Bowlby+One+SC&family=Bungee+Hairline&family=Bungee+Inline&family=Bungee+Shade&family=Chewy&family=Coming+Soon&family=Contrail+One&family=Covered+By+Your+Grace&family=Dokdo&family=DotGothic16&family=Faster+One&family=Gamja+Flower&family=Gloria+Hallelujah&family=Gochi+Hand&family=Hammersmith+One&family=Inconsolata:wght@900&family=Jolly+Lodger&family=Jua&family=Just+Another+Hand&family=Knewave&family=Lacquer&family=Londrina+Outline&family=Londrina+Shadow&family=Londrina+Solid:wght@300&family=Luckiest+Guy&family=Medula+One&family=Mogra&family=Monofett&family=Montserrat+Subrayada&family=Mouse+Memoirs&family=Nanum+Pen+Script&family=Nerko+One&family=Neucha&family=Nosifer&family=Patrick+Hand&family=Patrick+Hand+SC&family=Poor+Story&family=Potta+One&family=Press+Start+2P&family=Racing+Sans+One&family=Rowdies:wght@300&family=Rubik+Mono+One&family=Sedgwick+Ave&family=Sedgwick+Ave+Display&family=Sigmar+One&family=Skranji&family=Slackey&family=Teko:wght@600&family=The+Girl+Next+Door&family=Timmana&family=Truculenta:wght@100&family=VT323&family=Walter+Turncoat&family=ZCOOL+QingKe+HuangYou&family=Zhi+Mang+Xing&family=Zilla+Slab+Highlight&display=swap" rel="stylesheet">
+
+    <!----
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Knewave&family=Lilita+One&family=Londrina+Shadow&family=Shrikhand&family=Vast+Shadow&display=swap" rel="stylesheet">-->
+
+    <style>
+        body {
+          background:white;
+        }
+
+        .wonder {
+          font-size:30px;
+          color:red;
+          z-index;10
+        }
+    
+    </style>
+
+  </head>
+  <body> 
+      
+<script>
+var word;
+var w = 0;
+var f = 0;//delete. font iterate
+var randNum;
+var randomNumber;//?
+var fontsArray = [
+  "'Bangers', cursive", //omit colon, adds automaticaly
+  "'Knewave', cursive", 
+  "'Lilita One', cursive", 
+  "'Londrina Shadow', cursive", 
+  "'Shrikhand', cursive", 
+  "'Vast Shadow', cursive",
+  "'ABeeZee', sans-serif",
+  "'Alata', sans-serif",
+  "'Alatsi', sans-serif",
+  "'Aldrich', sans-serif",
+  "'Alef', sans-serif",
+  "'Allerta', sans-serif",
+  "'Anonymous Pro', monospace",
+  "'Anton', sans-serif",
+  "'Audiowide', cursive",
+  "'Bangers', cursive",
+  "'Barrio', cursive",
+  "'Bebas Neue', cursive",
+  "'Beth Ellen', cursive",
+  "'Black Han Sans', sans-serif",
+  "'Boogaloo', cursive",
+  "'Bowlby One SC', cursive",
+  "'Bungee Hairline', cursive",
+  "'Bungee Inline', cursive",
+  "'Bungee Shade', cursive",
+  "'Chewy', cursive",
+  "'Coming Soon', cursive",
+  "'Contrail One', cursive",
+  "'Covered By Your Grace', cursive",
+  "'Dokdo', cursive",
+  "'DotGothic16', sans-serif",
+  "'Faster One', cursive",
+  "'Gamja Flower', cursive",
+  "'Gloria Hallelujah', cursive",
+  "'Gochi Hand', cursive",
+  "'Hammersmith One', sans-serif",
+  "'Inconsolata', monospace",
+  "'Jolly Lodger', cursive",
+  "'Jua', sans-serif",
+  "'Just Another Hand', cursive",
+  "'Knewave', cursive",
+  "'Lacquer', cursive",
+  "'Londrina Outline', cursive",
+  "'Londrina Shadow', cursive",
+  "'Londrina Solid', cursive",
+  "'Luckiest Guy', cursive",
+  "'Medula One', cursive",
+  "'Mogra', cursive",
+  "'Monofett', cursive",
+  "'Montserrat Subrayada', sans-serif",
+  "'Mouse Memoirs', sans-serif",
+  "'Nanum Pen Script', cursive",
+  "'Nerko One', cursive",
+  "'Neucha', cursive",
+  "'Nosifer', cursive",
+  "'Patrick Hand', cursive",
+  "'Patrick Hand SC', cursive",
+  "'Poor Story', cursive",
+  "'Potta One', cursive",
+  "'Press Start 2P', cursive",
+  "'Racing Sans One', cursive",
+  "'Rowdies', cursive",
+  "'Rubik Mono One', sans-serif",
+  "'Sedgwick Ave', cursive",
+  "'Sedgwick Ave Display', cursive",
+  "'Sigmar One', cursive",
+  "'Skranji', cursive",
+  "'Slackey', cursive",
+  "'Teko', sans-serif",
+  "'The Girl Next Door', cursive",
+  "'Timmana', sans-serif",
+  "'Truculenta', sans-serif",
+  "'VT323', monospace",
+  "'Walter Turncoat', cursive",
+  "'ZCOOL QingKe HuangYou', cursive",
+  "'Zhi Mang Xing', cursive",
+  "'Zilla Slab Highlight', cursive",
+]
+
+var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
+var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
+var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent
+
+var grammar = '#JSGF V1.0; grammar spokenwords; public <spokenword> = bang | pow | boom | kersplat | blam | click;';
+//bonk 
+
+var recognition = new SpeechRecognition();
+var speechRecognitionList = new SpeechGrammarList();
+speechRecognitionList.addFromString(grammar, 1);
+recognition.grammars = speechRecognitionList;
+recognition.continuous = true; //false
+recognition.lang = 'en-US';
+recognition.interimResults = true; //false
+recognition.maxAlternatives = 1;
+
+document.body.onclick = function() {
+  recognition.start();
+  console.log('Ready to receive a color command.');
+}
+
+recognition.onresult = function(event) {
+  // The SpeechRecognitionEvent results property returns a SpeechRecognitionResultList object
+  // The SpeechRecognitionResultList object contains SpeechRecognitionResult objects.
+  // It has a getter so it can be accessed like an array
+  // The first [0] returns the SpeechRecognitionResult at the last position.
+  // Each SpeechRecognitionResult object contains SpeechRecognitionAlternative objects that contain individual results.
+  // These also have getters so they can be accessed like arrays.
+  // The second [0] returns the SpeechRecognitionAlternative at position 0.
+  // We then return the transcript property of the SpeechRecognitionAlternative object
+  var spokenTranscript = event.results[0][0].transcript;
+  console.log("spokenTranscript: " + spokenTranscript)
+  console.log('Confidence: ' + event.results[0][0].confidence);
+
+  spacex(spokenTranscript);
+}
+
+recognition.onspeechend = function() {
+  recognition.stop();
+}
+
+recognition.onnomatch = function(event) {
+  consoole.log("I didn't recognise that word.");
+}
+
+recognition.onerror = function(event) {
+  console.log("'Error occurred in recognition: ' + event.error");
+}
+
+document.body.onkeyup = function(e) {
+  if(e.keyCode == 27) {//esc
+    //washboard()
+   // spacex();
+  }
+}
+
+function randomRGB() {
+  const r = Math.floor(Math.random() * 256);
+  const g = Math.floor(Math.random() * 256);
+  const b = Math.floor(Math.random() * 256);
+  return "rgb(" + r + "," + g + "," + b + ")";
+}
+
+function randomRGBA() {
+  const r = Math.floor(Math.random() * 256);
+  const g = Math.floor(Math.random() * 256);
+  const b = Math.floor(Math.random() * 256);
+  const a = Math.random() * (1 - 0.2 + 1) + 0.2;
+  //const a = Math.random().toFixed(1); // 0.0 to 1.0 
+  return "rgba(" + r + "," + g + "," + b + "," + a + ")";
+}
+
+function createRandomNumber() {
+  randomNumber = Math.floor(Math.random() * (10 - 1 + 1) + 1); //1 to 10 
+  return randomNumber;
+}
+
+//comment out this function
+function addPattern(svg) {
+w++;
+var defs = document.createElementNS("http://www.w3.org/2000/svg", "defs"); //xlmns?
+var pattern = document.createElementNS("http://www.w3.org/2000/svg", "pattern"); //xlmns?
+pattern.setAttribute("x", "0");
+pattern.setAttribute("y", "0");
+pattern.setAttribute("id", "pattern" + w) //QQ
+pattern.setAttribute("width", "41") //15 change?
+pattern.setAttribute("height", "41");
+pattern.setAttribute("patternUnits", "userSpaceOnUse");
+pattern.setAttribute("background-color", randomRGB());//opacity?
+
+//path backgroundcolor
+var rect1 = document.createElementNS("http://www.w3.org/2000/svg", "rect"); //xlmns?
+rect1.setAttribute("x", "0");
+rect1.setAttribute("y", "0");
+rect1.setAttribute("width", "100%")//100% change to match pattern width, height?
+rect1.setAttribute("height", "100%");
+rect1.setAttribute("fill", randomRGBA());//RGB opacity?
+
+pattern.appendChild(rect1);
+
+var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle"); //xlmns?
+circle.setAttribute("cx", "17"); //0
+circle.setAttribute("cy", "17"); //0
+circle.setAttribute("r", "8") //3 change?
+circle.setAttribute("stroke", "none"); //?
+circle.setAttribute("fill", randomRGB()) //opacity? //color of pattern shape
+
+//position of circle, rect? QQ
+pattern.appendChild(circle);
+
+defs.appendChild(pattern);
+
+//check works duplicate 
+var rect2 = document.createElementNS("http://www.w3.org/2000/svg", "rect"); //xlmns?
+rect2.setAttribute("x", "0");
+rect2.setAttribute("y", "0");
+rect2.setAttribute("width", "100%");
+rect2.setAttribute("height", "100%");
+rect2.setAttribute("fill", "url(#thispattern)");
+//rect2.setAttribute("fill", "url(#" + pattern + ")");
+//stroke, stroke-width, flood-color
+
+defs.appendChild(rect2);
+
+svg.appendChild(defs);
+//where will get appended to svg code
+
+console.log("w: " + w);
+
+return w;
+//return pattern.id 
+}
+
+function spacex(spokenTranscript) {
+ transcriptNoSpaces = spokenTranscript.split(" ");
+  console.log(transcriptNoSpaces);
+
+  for(var p = 0; p < transcriptNoSpaces.length; p++) {
+    console.log("transcriptNoSpaces[p]: " + p + " " + transcriptNoSpaces[p]);
+    word = transcriptNoSpaces[p];
+    chocolate(word);
+  }
+}
+
+function chocolate(word) {
+//function spacex() {
+//Math.floor(Math.random() * (max - min + 1)) + min;
+const b = Math.floor(Math.random() * (50 - 10 + 1)) + 10; //svg width, height
+const p = Math.floor(Math.random() * 20) + 1; //1 to 43 //svg right
+const t = Math.floor(Math.random() * (50 - 20 + 1) + 20); //svg top (50 - 35 + 1) + 35. (70 - 55 + 1) + 55); 
+const bw = Math.floor(Math.random() * (38 - 10 + 1)) + 10; //path stroke width //40 - 10 + 1)) + 10
+const v = Math.floor(Math.random() * (20 - 10 + 1)) + 10; //font size (18 - 10 + 1)) + 10 
+const d = Math.floor(Math.random() * 8); //0 to 7 //text stroke width
+
+//var l = Math.floor(Math.random() * 101); //0-100
+//const ls =  Math.floor(Math.random() * 6); //0 to 5. 7? letter spacing
+//const s = Math.floor(Math.random() * (100 - 16 + 1) + 16); font size old? 
+//const bw = Math.floor(Math.random() * (15 - 6 + 1) + 6);
+
+/*
+const w = Math.floor(Math.random() * (window.innerWidth)); //includes max browser width, height? 
+const h = Math.floor(Math.random() * (window.innerHeight)); 
+const testW = window.innerWidth;
+const testH = window.innerHeight;
+*/
+
+var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+
+randNum = createRandomNumber();
+console.log("randNum: " + randNum);
+
+svg.style.position = "fixed"; //absolute?
+svg.style.display = "inline-block"//maybe no diff???QQQ
+
+svg.style.right = p + "%";//console.log("p: " + p);
+svg.style.top = t + "%"; //added 
+
+svg.setAttribute("viewBox", "0 0 1920 1200");//!!!1920 1200 
+svg.setAttribute("preserveAspectRatio", "xMidYMid meet"); 
+//document.body.appendChild(svg);
+
+var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+path.setAttribute("d", "M898 22.6c-41.9 1.1-92.6 5-144.5 11-63.5 7.4-141.3 22.3-203 39-30.5 8.2-96.7 29.2-111 35.2L410 119.5c-13.5 5.3-30.3 12.4-37.5 15.7l-48 22.8c-1.6.9-8.8 4.8-16 8.5-7.1 3.8-15.2 8.3-18 10-2.7 1.8-9.3 5.6-14.5 8.5-11.7 6.6-38.5 23.9-55.1 35.6-46.5 32.7-90.1 72.5-122 111.4-40.7 49.7-68.8 103.2-82.3 156.5-4 15.9-8.4 41-9.5 54.2-1.3 14.9-1.4 44.9-.1 59.9 4.9 59.8 27.4 121.3 65.3 178.4 8.7 13.1 24.7 34.6 31.8 42.6 3 3.3 8 9.2 11.3 13 27.9 32.8 76 74.8 121.1 105.8 19 13 49.1 31.8 65.5 40.9l18.5 10.4c9.4 5.6 50.2 25.3 71.5 34.6 39.6 17.3 45.5 19.7 88.5 34.8 49.2 17.4 89.9 29.1 148.5 42.7 23.8 5.6 64.6 13.7 81.5 16.2l86 12c6.6.6 15.4 1.6 19.5 2.1 8 1 33.4 3.1 67.5 5.4 11.6.8 34.1 1.7 50 2l43.5.9c26.2.6 94-2 137-5.4 23.3-1.8 63.1-6.2 83-9.1l31.7-4.4c29.5-3.7 81.4-14.3 128.8-26.1l18-4.4c12.1-2.6 77.1-22.5 85.8-26.2l4.8-2.1 4.7 4.5c19.4 18.6 53.6 44.2 77.3 57.9 38.9 22.5 47 26.3 69.3 32.3 17.1 4.6 20.6 5.1 58.2 8.6 18.1 1.6 22.3 2.3 30 5 18.6 6.6 32 2.8 35.4-10.1 2.5-9.2-4-18.1-15-20.4-9.2-2-17.9-8.5-44.9-33.8-26.3-24.8-38.5-37.5-47.5-49.6-20.6-27.8-21.8-29.7-26.1-40.1-4-9.6-4.2-10.6-2.7-11.8.9-.7 8.7-4.9 17.2-9.4 38.9-20.3 89.2-53 120.9-78.7l13.1-10.6c34.6-27.6 79.4-76.7 103.7-113.5 24.6-37.2 41.5-72.7 51.7-108.7 8.9-30.9 8.6-27.8 8.6-96.8v-61l-3.4-14.5c-10-42.6-30.8-90.1-56-128-34.1-51.5-82.1-101.3-138.9-144.4-61.4-46.5-133.8-86.5-218.2-120.6-78.5-31.6-163-56.1-254-73.6-36.6-7-103.8-16.6-135.5-19.4l-15.5-1.5c-4.9-.6-41.8-3.2-64.5-4.6-16.8-.9-113.4-1.9-136-1.3z")
+
+if(randNum == 10) {
+  i = addPattern(svg); //return thispattern? QQ
+  path.setAttribute("fill", "url(#pattern" + i + ")");
+} else {
+  path.setAttribute("fill", randomRGBA());
+}
+
+svg.appendChild(path);  
+
+path.setAttribute("stroke-width", bw + "px");//20px bw + "px" QQ change to random
+path.setAttribute("stroke", randomRGB());
+//path.style.stroke ="10px solid " + randomRGB(); //opacity?
+    
+var text = document.createElementNS("http://www.w3.org/2000/svg","text");
+text.setAttribute("x", "50%");//text.setAttributeNS(null, "x", "100px");//?Q
+text.setAttribute("y", "50%"); 
+//text.setAttribute("letter-spacing", ls + "px");
+text.setAttribute("text-anchor", "middle"); // text.setAttributeNS(null, "text-anchor", "middle");
+text.setAttribute("dominant-baseline", "middle"); //text.setAttributeNS(null, "dominant-baseline", "middle");
+//text.setAttribute("border", "10px solid blue"); //text.setAttributeNS(null, "border", "5px solid green");
+//text.style.position="relative";
+
+text.textContent = word.toUpperCase();
+//text.textContent = "supernova"; //dolor sit amet, consectetur adipiscing elit. rit rhoncus sed
+
+text.setAttribute("font-size", v + "rem"); //s + px. QQ REM TESTING
+text.style.fontFamily = fontsArray[f];//delete (loop thru fonts)
+//text.style.fontFamily = fontsArray[Math.floor(Math.random() * fontsArray.length)];
+console.log(text.style.fontFamily);   
+
+text.setAttribute("fill", randomRGB()); 
+text.setAttribute("stroke", randomRGB());
+text.setAttribute("stroke-width", d + "px"); //10. % of viewbox. d + "  //stroke-opacity
+
+svg.appendChild(text); //!!!
+
+//var truffle = text.getBBox().width;
+//svg.style.width = text.getBBox().width * l + "px"; //+ "px" //not perfect? svg not = text width
+//console.log("magpie: " + text.getBBox().width); //why not same 
+//console.log("molasses: " + svg.style.width);
+//console.log("truffle:" + truffle);*/
+//svg.style.height="auto"
+svg.style.height = b + "%"; //"20%" //s + "%"; //"25%";
+svg.style.width = b + "%"; //"20%" //s + "%";
+
+document.body.appendChild(svg);
+/*
+console.log(testW);
+console.log(svg.clientWidth);
+svg.style.left = (svg.clientWidth); //vg.getBBox().width //(testW - svg.getBBox().width) + "px";//console.log("p: " + p);
+svg.style.top = (testH - svg.clientHeight); // svg.getBBox().height//(testH - svg.getBBox().height) + "px"; //added 
+
+console.log(svg.getBBox().width);
+*/
+
+/*
+setTimeout(function() {
+    svg.parentNode.removeChild(svg);
+}, 3000);
+*/
+
+console.log("laugh" + f) //delete
+f++//delete. loop through fonts
+return f //delete
+} 
+
+function washboard() {
+//Math.floor(Math.random() * (max - min + 1)) + min;
+var l = Math.floor(Math.random() * 101); //0-100
+const ls =  Math.floor(Math.random() * 6); //0 to 5. 7?
+const bw = Math.floor(Math.random() * (40 - 10 + 1)) + 10;
+//const bw = Math.floor(Math.random() * (15 - 6 + 1) + 6);
+const d = Math.floor(Math.random() * 8); //0 to 7 //stroke width
+//const s = Math.floor(Math.random() * (100 - 16 + 1) + 16); 
+
+const b = Math.floor(Math.random() * (50 - 10 + 1)) + 10; //svg width, height
+const p = Math.floor(Math.random() * 20) + 1; //1 to 43
+const t = Math.floor(Math.random() * (50 - 35 + 1) + 35); //(70 - 55 + 1) + 55);
+
+const v = Math.floor(Math.random() * (18 - 10 + 1)) + 10;
+/*
+const w = Math.floor(Math.random() * (window.innerWidth)); //includes max browser width, height? 
+const h = Math.floor(Math.random() * (window.innerHeight)); 
+const testW = window.innerWidth;
+const testH = window.innerHeight;
+*/
+
+var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+/*
+svg.style.display="inline-block"//maybe no diff???QQQ
+svg.style.position = "fixed"; //absolute?
+
+
+svg.style.right = p + "%";//console.log("p: " + p);
+svg.style.top = t + "%"; //added 
+*/
+
+/*
+svg.style.left = w + "px";//console.log("p: " + p);
+svg.style.top = h + "px"; //added \
+*/
+
+/* original
+svg.style.left = l + "%";//console.log("p: " + p);
+svg.style.top = l + "%"; //added 
+*/
+
+//svg.id="cookie";
+//svg.style.border = "2px solid green";
+svg.setAttribute("width", "1600");//!!!1920 1200 
+svg.setAttribute("height", "2560");//!!!1920 1200 
+svg.setAttribute("viewBox", "0 0 1920 1200");//!!!1920 1200 
+svg.setAttribute("preserveAspectRatio", "xMidYMid meet"); 
+//document.body.appendChild(svg);
+
+var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+path.setAttribute("d", "M898 22.6c-41.9 1.1-92.6 5-144.5 11-63.5 7.4-141.3 22.3-203 39-30.5 8.2-96.7 29.2-111 35.2L410 119.5c-13.5 5.3-30.3 12.4-37.5 15.7l-48 22.8c-1.6.9-8.8 4.8-16 8.5-7.1 3.8-15.2 8.3-18 10-2.7 1.8-9.3 5.6-14.5 8.5-11.7 6.6-38.5 23.9-55.1 35.6-46.5 32.7-90.1 72.5-122 111.4-40.7 49.7-68.8 103.2-82.3 156.5-4 15.9-8.4 41-9.5 54.2-1.3 14.9-1.4 44.9-.1 59.9 4.9 59.8 27.4 121.3 65.3 178.4 8.7 13.1 24.7 34.6 31.8 42.6 3 3.3 8 9.2 11.3 13 27.9 32.8 76 74.8 121.1 105.8 19 13 49.1 31.8 65.5 40.9l18.5 10.4c9.4 5.6 50.2 25.3 71.5 34.6 39.6 17.3 45.5 19.7 88.5 34.8 49.2 17.4 89.9 29.1 148.5 42.7 23.8 5.6 64.6 13.7 81.5 16.2l86 12c6.6.6 15.4 1.6 19.5 2.1 8 1 33.4 3.1 67.5 5.4 11.6.8 34.1 1.7 50 2l43.5.9c26.2.6 94-2 137-5.4 23.3-1.8 63.1-6.2 83-9.1l31.7-4.4c29.5-3.7 81.4-14.3 128.8-26.1l18-4.4c12.1-2.6 77.1-22.5 85.8-26.2l4.8-2.1 4.7 4.5c19.4 18.6 53.6 44.2 77.3 57.9 38.9 22.5 47 26.3 69.3 32.3 17.1 4.6 20.6 5.1 58.2 8.6 18.1 1.6 22.3 2.3 30 5 18.6 6.6 32 2.8 35.4-10.1 2.5-9.2-4-18.1-15-20.4-9.2-2-17.9-8.5-44.9-33.8-26.3-24.8-38.5-37.5-47.5-49.6-20.6-27.8-21.8-29.7-26.1-40.1-4-9.6-4.2-10.6-2.7-11.8.9-.7 8.7-4.9 17.2-9.4 38.9-20.3 89.2-53 120.9-78.7l13.1-10.6c34.6-27.6 79.4-76.7 103.7-113.5 24.6-37.2 41.5-72.7 51.7-108.7 8.9-30.9 8.6-27.8 8.6-96.8v-61l-3.4-14.5c-10-42.6-30.8-90.1-56-128-34.1-51.5-82.1-101.3-138.9-144.4-61.4-46.5-133.8-86.5-218.2-120.6-78.5-31.6-163-56.1-254-73.6-36.6-7-103.8-16.6-135.5-19.4l-15.5-1.5c-4.9-.6-41.8-3.2-64.5-4.6-16.8-.9-113.4-1.9-136-1.3z")
+
+/*
+path.setAttribute("stroke-width", bw + "px");//20px bw + "px" QQ change to random
+path.setAttribute("stroke", randomRGB());
+*/
+
+//path.style.stroke ="10px solid " + randomRGB(); //opacity?
+//or normal way: path.setAttribute("fill", randomRGBA());
+
+/*
+i = addPattern(svg); //return thispattern? QQ
+path.setAttribute("fill", "url(#pattern" + i + ")");
+*/
+
+svg.appendChild(path);  
+
+var rect =  document.createElementNS("http://www.w3.org/2000/svg", "rect");
+rect.setAttribute("position", "relative");
+rect.setAttribute("fill", 'blue');
+rect.setAttribute("width", "75%");
+rect.setAttribute("height", "60%");
+rect.setAttribute("x", "calc(50% - 37.5%)");
+rect.setAttribute("y", "calc(50% - 30%)");
+rect.setAttribute("text-anchor", "middle");
+rect.setAttribute("dominant-baseline", "middle"); 
+//rect.setAttribute("border", "5px solid purple"); 
+rect.style.zIndex= "-1";
+
+svg.appendChild(rect);
+
+var mandoo = document.createElementNS("http://www.w3.org/2000/svg", "switch");
+var pencil = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+//pencil.setAttribute("requiredExtensions", "http://www.w3.org/1999/xhtml");
+pencil.setAttribute("width", "75%");
+pencil.setAttribute("height", "60%")
+pencil.setAttribute("x", "calc(50% - 37.5%)");
+pencil.setAttribute("y","calc(50% - 30%)");
+pencil.setAttribute("text-anchor", "middle");
+pencil.setAttribute("dominant-baseline", "middle");
+pencil.setAttribute("border", "5px solid purple"); 
+
+var bodolee = document.createElementNS("http://www.w3.org/2000/svg", "body");
+bodolee.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
+bodolee.setAttribute("border", "5px solid purple"); 
+
+var scroll= document.createElementNS("http://www.w3.org/2000/svg", "text");
+//var scroll = document.createTextNode("flotsam");
+//panda.appendChild(scroll)
+//scroll.textContent = "here is a para";
+scroll.style.fill = "black"
+scroll.style.size = "30px"
+scroll.style.display = "block"
+scroll.style.zIndex = "10"
+//var poet = svg.querySelector("text")
+//poet.setAttribute("size", "30px");
+//scroll.setAttribute("innerText", "hamburger")
+scroll.classList.add("wonder")
+scroll.innerText = 'whatever'
+//poet.setAttribute("color", "black");
+//scroll.textContent = "Here is a paragraph that requires"
+//scroll.setAttribute("border", "5px solid purple"); 
+//scroll.setAttribute("textContent", "Here is a paragraph that requires word wrapere is a paragraph");
+/*scroll.setAttribute("color", "black");//randomRGB 
+scroll.setAttribute("size", "30px");
+scroll.setAttribute("fill", "red");
+scroll.setAttribute("stroke", randomRGB())
+scroll.setAttribute("stroke-width", "30px")
+scroll.style.fontFamily = fontsArray[Math.floor(Math.random() * fontsArray.length)];
+console.log("scroll:" + scroll);
+*/
+
+//scroll.textContent="Here is a paragraph that requires word wrapere is a paragraph"
+
+bodolee.appendChild(scroll);
+pencil.appendChild(bodolee);
+mandoo.appendChild(pencil);
+
+svg.appendChild(mandoo);
+
+document.body.appendChild(svg);
+
+}
+
+</script>
+  
+</body>
+</html>
+
+<!--sources 
+http://jsfiddle.net/tiffhockin/fesvq8u0/
+
+
+SPARE CODE
+/*
+svg.style.left = w + "px";//console.log("p: " + p);
+svg.style.top = h + "px"; //added 
+*/
+
+/* original
+svg.style.left = l + "%";//console.log("p: " + p);
+svg.style.top = l + "%"; //added 
+*/
+
+//svg.id="cookie";
+//svg.style.border = "2px solid green";
+-->
+
+<!---
+var text = document.createElementNS("http://www.w3.org/2000/svg","text");
+text.setAttribute("x", "50%");//text.setAttributeNS(null, "x", "100px");//?Q
+text.setAttribute("y", "50%"); 
+//text.setAttribute("letter-spacing", ls + "px");
+text.setAttribute("text-anchor", "middle"); // text.setAttributeNS(null, "text-anchor", "middle");
+text.setAttribute("dominant-baseline", "middle"); //text.setAttributeNS(null, "dominant-baseline", "middle");
+//text.setAttribute("border", "10px solid blue"); //text.setAttributeNS(null, "border", "5px solid green");
+ //text.style.position="relative";
+text.textContent = "supernova" ;//dolor sit amet, consectetur adipiscing elit. rit rhoncus sed
+text.setAttribute("fill", randomRGB()); 
+text.setAttribute("stroke", randomRGB());
+text.setAttribute("stroke-width", d + "px"); //10. % of viewbox. d + "  //stroke-opacity
+
+text.setAttribute("font-size", v + "rem"); //s + px. QQ REM TESTING
+text.style.fontFamily = fontsArray[Math.floor(Math.random() * fontsArray.length)];
+console.log(text.style.fontFamily);    
+svg.appendChild(text); //!!!
+
+//var truffle = text.getBBox().width;
+//svg.style.width = text.getBBox().width * l + "px"; //+ "px" //not perfect? svg not = text width
+//console.log("magpie: " + text.getBBox().width); //why not same 
+//console.log("molasses: " + svg.style.width);
+//console.log("truffle:" + truffle);*/
+//svg.style.height="auto"
+svg.style.height = b + "%"; //"20%" //s + "%"; //"25%";
+svg.style.width = b + "%"; //"20%" //s + "%";
+
+/*
+console.log(testW);
+console.log(svg.clientWidth);
+svg.style.left = (svg.clientWidth); //vg.getBBox().width //(testW - svg.getBBox().width) + "px";//console.log("p: " + p);
+svg.style.top = (testH - svg.clientHeight); // svg.getBBox().height//(testH - svg.getBBox().height) + "px"; //added 
+
+console.log(svg.getBBox().width);
+*/
+
+/*
+setTimeout(function() {
+    svg.parentNode.removeChild(svg);
+}, 3000);
+*/
+-->
