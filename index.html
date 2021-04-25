@@ -124,9 +124,9 @@ var recognition = new SpeechRecognition();
 var speechRecognitionList = new SpeechGrammarList();
 speechRecognitionList.addFromString(grammar, 1);
 recognition.grammars = speechRecognitionList;
-recognition.continuous = true; //false
+recognition.continuous = false; //false
 recognition.lang = 'en-US';
-recognition.interimResults = true; //false
+recognition.interimResults = false; //false
 recognition.maxAlternatives = 1;
 
 document.body.onclick = function() {
